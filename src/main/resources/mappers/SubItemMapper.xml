@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bsc.dao.SubItemMapper">
+	<resultMap id="BaseResultMap" type="com.bsc.model.SubItem">
+		<id column="ID" property="id" jdbcType="INTEGER" />
+		<result column="FIELD_NAME" property="fieldName" jdbcType="VARCHAR" />
+		<result column="FIELD_DES" property="fieldDes" jdbcType="VARCHAR" />
+		<result column="property_type" property="propertyType"
+			jdbcType="VARCHAR" />
+		<result column="DB_TYPE" property="dbType" jdbcType="VARCHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<association property="item" column="ITEM_ID" resultMap="itemResultMap"
+			javaType="Item" />
+	</resultMap>
+	<resultMap id="itemResultMap" type="com.bsc.model.Item">
+		<id column="ITEM_ID" property="id" jdbcType="INTEGER" />
+		<result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+		<result column="ITEM_DES" property="itemDes" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="item_column">
+		i.ID as ITEM_ID, i.ITEM_NAME, i.ITEM_DES,i.db_id
+	</sql>
+
+	<sql id="Base_Column_List">
+		s.ID, s.FIELD_NAME,
+		s.FIELD_DES,s.CREATE_DATE,s.property_Type,s.DB_TYPE
+	</sql>
+
+	<select id="findAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="item_column" />
+		from
+		sub_item s,item i where i.id=s.item_id
+	</select>
+	<select id="findListPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="item_column" />
+		from
+		sub_item s,item i where i.id=s.item_id
+		<trim>
+			<if test="hashMap.fieldName != null and hashMap.fieldName != ''">
+				AND s.FIELD_NAME like "%"#{hashMap.fieldName}"%"
+			</if>
+			<if test="hashMap.itemId != null and hashMap.itemId != ''">
+				AND s.item_id = #{hashMap.itemId}
+			</if>
+		</trim>
+	</select>
+
+	<select id="findListByItemId" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="item_column" />
+		from sub_item s,item i
+		where i.id=s.item_id and  i.id = #{itemId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="item_column" />
+		from sub_item s,item i
+		where i.id=s.item_id and  s.ID = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		sub_item
+		where ID = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.bsc.model.SubItem">
+		insert into sub_item (ID,
+		FIELD_NAME, FIELD_DES,CREATE_DATE,DB_TYPE,property_type,
+		ITEM_ID)
+		values
+		(#{id,jdbcType=INTEGER}, #{fieldName,jdbcType=VARCHAR},
+		#{fieldDes,jdbcType=VARCHAR},#{createDate,jdbcType=TIMESTAMP},
+		#{dbType,jdbcType=VARCHAR},#{propertyType,jdbcType=VARCHAR},
+		#{item.id,jdbcType=INTEGER})
+	</insert>
+	<insert id="batchAdd" parameterType="java.util.List" >
+		insert into sub_item (FIELD_NAME, FIELD_DES,CREATE_DATE,DB_TYPE,property_type,ITEM_ID) values
+		<foreach collection="list" item="data" separator=",">
+		 (#{data.fieldName,jdbcType=VARCHAR}, #{data.fieldDes,jdbcType=VARCHAR},#{data.createDate,jdbcType=TIMESTAMP},#{data.dbType,jdbcType=VARCHAR},#{data.propertyType,jdbcType=VARCHAR},#{data.item.id,jdbcType=INTEGER} )
+		</foreach>
+	</insert>
+	<insert id="insertSelective" parameterType="com.bsc.model.SubItem">
+		insert into sub_item
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="fieldName != null">
+				FIELD_NAME,
+			</if>
+			<if test="fieldDes != null">
+				FIELD_DES,
+			</if>
+			<if test="item.id != null">
+				ITEM_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="fieldName != null">
+				#{fieldName,jdbcType=VARCHAR},
+			</if>
+			<if test="fieldDes != null">
+				#{fieldDes,jdbcType=VARCHAR},
+			</if>
+			<if test="item.id != null">
+				#{item.id,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bsc.model.SubItem">
+		update sub_item set
+		<trim prefix="set" suffixOverrides=",">
+			<if test="fieldName != null">
+				FIELD_NAME = #{fieldName,jdbcType=VARCHAR},
+			</if>
+			<if test="fieldDes != null">
+				FIELD_DES = #{fieldDes,jdbcType=VARCHAR},
+			</if>
+			<if test="item.id != null">
+				ITEM_ID = #{item.id,jdbcType=INTEGER},
+			</if>
+		</trim>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bsc.model.SubItem">
+		update sub_item
+		set FIELD_NAME = #{fieldName,jdbcType=VARCHAR},
+		FIELD_DES =
+		#{fieldDes,jdbcType=VARCHAR},
+		DB_TYPE =#{dbType,jdbcType=VARCHAR},
+		property_type = #{propertyType,jdbcType=VARCHAR},
+		ITEM_ID =
+		#{item.id,jdbcType=INTEGER}
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+	<delete id="batchDeleteById">
+		delete from sub_item where id in
+		<foreach collection="array" open="(" close=")" separator=","
+			item="item">
+			#{item}
+		</foreach>
+	</delete>
+</mapper>

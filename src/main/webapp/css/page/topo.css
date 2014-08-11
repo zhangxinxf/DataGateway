@@ -1,0 +1,218 @@
+.jOrgChart .node {
+    -webkit-background-size: none;
+    cursor: pointer;
+}
+
+.jOrgChart {
+    cursor: move;
+}
+
+.topo-bg {
+    background: url(../../img/topo/topo_bg.png) repeat 0 0;
+    padding: 20px;
+    min-height: 460px;
+    *min-height: 500px;
+}
+
+.topo-chart-box {
+    overflow: hidden;
+}
+.topo-slider-box {
+    margin-left: 11px;
+}
+.slider_min, .slider_max {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+.slider_min {
+    background: url(../../img/topo/slider_min.png) no-repeat 0 0;
+}
+.slider_max {
+    background: url(../../img/topo/slider_max.png) no-repeat 0 0;
+}
+.slider {
+    margin-left: 4px;
+}
+.slider.ui-slider .ui-state-default {
+    border: none;
+    background: url(../../img/topo/slider_handle.png) no-repeat 0 0;
+    width: 18px;
+    height: 10px;
+}
+.slider.ui-slider.ui-widget-content {
+    border: none;
+    border-radius: 0;
+    background: url(../../img/topo/slider_bg.png) repeat-y 1px 0;
+}
+.slider.ui-slider .ui-widget-header {
+    border: none;
+    border-radius: 0;
+    background: url(../../img/topo/slider_bg_top.png) repeat-y 1px 0;
+}
+
+.node-container table {
+    width: 100%;
+}
+.topo-level  {
+	position: relative;
+	overflow: visible;
+	z-index: 1;
+}
+.topo-tip {
+	position: absolute;
+	top: 0;
+	right: -200px;
+	width: 200px;
+	display: none;
+	background-color: #cccccc;	
+	border-radius: 5px;
+	padding: 5px;
+	opacity: 0.8;
+	filter: alpha(opacity=80);
+	z-index: 100;
+	text-align: left;
+}
+.topo-level-hover {
+	position: relative;
+	z-index: 1;
+}
+.topo-level-hover .topo-tip {
+	display: block;
+}
+.topo-level-0, .topo-level-1,
+.topo-level-2, .topo-level-3,
+.topo-level-4, .topo-level-5,
+.topo-level-6 {
+    width: 100%;
+}
+.topo-level-0 {
+    background: url(../../img/topo/level_root.png) no-repeat 50% 2px;
+    height: 117px;
+
+}
+.topo-level-1 {
+    background: url(../../img/topo/level_1.png) no-repeat 50% 2px;
+    padding-top: 57px; /* height 52 */
+}
+.topo-level-2-1, .topo-level-2-2,
+.topo-level-2-3, .topo-level-2-4,
+.topo-level-2-5, .topo-level-2-ing
+{
+    padding-top: 58px; /* height 53 */
+}
+.topo-level-2-1 {
+    background: url(../../img/topo/level_2_1.png) no-repeat 50% 2px;
+}
+.topo-level-2-2 {
+    background: url(../../img/topo/level_2_2.png) no-repeat 50% 2px;
+}
+.topo-level-2-3 {
+    background: url(../../img/topo/level_2_3.png) no-repeat 50% 2px;
+}
+.topo-level-2-4 {
+    background: url(../../img/topo/level_2_4.png) no-repeat 50% 2px;
+}
+.topo-level-2-5 {
+    background: url(../../img/topo/level_2_5.png) no-repeat 50% 2px;
+}
+.topo-level-2-ing {
+    background: url(../../img/topo/level_2_ing.png) no-repeat 50% 2px;
+}
+.topo-level-3-1, .topo-level-3-2,
+.topo-level-3-3, .topo-level-3-4,
+.topo-level-3-5, .topo-level-3-ing {
+    padding-top: 67px; /* height 62 */
+}
+.topo-level-3-1 {
+    background: url(../../img/topo/level_3_1.png) no-repeat 50% 2px;
+}
+.topo-level-3-2 {
+    background: url(../../img/topo/level_3_2.png) no-repeat 50% 2px;
+}
+.topo-level-3-3 {
+    background: url(../../img/topo/level_3_3.png) no-repeat 50% 2px;
+}
+.topo-level-3-4 {
+    background: url(../../img/topo/level_3_4.png) no-repeat 50% 2px;
+}
+.topo-level-3-5 {
+    background: url(../../img/topo/level_3_5.png) no-repeat 50% 2px;
+}
+.topo-level-3-ing {
+    background: url(../../img/topo/level_3_ing.png) no-repeat 50% 2px;
+}
+.topo-level-3 {
+    background: url(../../img/topo/level_3.png) no-repeat 50% 2px;
+    padding-top: 66px; /* height 61 */
+}
+.topo-level-4 {
+    background: url(../../img/topo/level_4.png) no-repeat 50% 2px;
+    padding-top: 44px; /* height 39 */
+}
+.topo-level-5 {
+    background: url(../../img/topo/level_5.png) no-repeat 50% 2px;
+    padding-top: 52px; /* height 47 */
+}
+.topo-level-6 {
+    background: url(../../img/topo/level_6.png) no-repeat 50% 2px;
+    padding-top: 52px; /* height 47 */
+}
+
+.orgChart .jOrgChart .node {
+    background: none;
+    border: none;
+    height: auto;
+}
+
+.topo-drag-box {
+    background: url(../../img/topo/drag_box.png) no-repeat 0 0;
+    width: 40px;
+    height: 40px;
+    position: relative;
+}
+.drag-top, .drag-right,
+.drag-bottom, .drag-left {
+    position: absolute;
+    cursor: pointer;
+}
+.drag-top {
+    width: 16px;
+    height: 12px;
+    left: 12px;
+    top: 0;
+}
+.drag-right {
+    width: 12px;
+    height: 16px;
+    right: 0;
+    top: 12px;
+}
+.drag-bottom {
+    width: 16px;
+    height: 12px;
+    left: 12px;
+    bottom: 0;
+}
+.drag-left {
+    width: 12px;
+    height: 16px;
+    left: 0;
+    top: 12px;
+}
+
+.jOrgChart .node.drag-active {
+    border-style: none !important;
+}
+
+.jOrgChart .node.drop-hover {
+    border-style: solid !important;
+    border-color: #E05E00 !important;
+}
+
+.jOrgChart .node:hover {
+    border: 1px dotted #000000;
+}
+.jOrgChart .node.node-checked {
+    border: 2px dotted #000000;
+}

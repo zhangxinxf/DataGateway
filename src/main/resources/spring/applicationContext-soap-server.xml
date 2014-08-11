@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xsi:schemaLocation="
+	 http://cxf.apache.org/jaxws
+	 http://cxf.apache.org/schemas/jaxws.xsd
+	 http://cxf.apache.org/jaxrs
+	 http://cxf.apache.org/schemas/jaxrs.xsd
+	 http://www.springframework.org/schema/beans
+	 http://www.springframework.org/schema/beans/spring-beans-3.2.xsd"
+	default-lazy-init="true">
+
+	<description>Apache CXF的 SOAP Web Service配置</description>
+
+	<!-- jax-ws endpoint定义 -->
+	<jaxws:endpoint address="/soap/accountservice">
+		<jaxws:implementor ref="accountSoapService" />
+	</jaxws:endpoint>
+
+	<!-- WebService的实现Bean定义 -->
+	<bean id="accountSoapService" class="com.bsc.soap.AccountSoapServiceImpl" />
+
+
+	<!-- cxf reset 实现 -->
+	<bean id="userRestService" class="com.bsc.rest.UserRestService" />
+
+	<jaxrs:server id="restServiceContainer" address="/rest">
+		<jaxrs:serviceBeans>
+			<ref bean="userRestService" />
+		</jaxrs:serviceBeans>
+		<jaxrs:extensionMappings>
+			<entry key="json" value="application/json" />
+			<entry key="xml" value="application/xml" />
+		</jaxrs:extensionMappings>
+		<jaxrs:languageMappings>
+			<entry key="en" value="en-gb" />
+		</jaxrs:languageMappings>
+	</jaxrs:server>
+</beans>

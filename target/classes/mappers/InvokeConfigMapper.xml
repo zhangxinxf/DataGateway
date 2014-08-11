@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bsc.dao.InvokeConfigMapper">
+  <resultMap id="BaseResultMap" type="com.bsc.model.InvokeConfig">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="METHOD_NAME" jdbcType="VARCHAR" property="methodName" />
+    <result column="METHOD_DES" jdbcType="VARCHAR" property="methodDes" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createDate" />
+    <association property="dbInfo" column="DB_ID" javaType="DbInfo" resultMap="dbResultMap"/>
+  </resultMap>
+  <resultMap id="dbResultMap" type="com.bsc.model.DbInfo">
+		<id column="ID" property="id" jdbcType="INTEGER" />
+		<result column="APPNAME" property="appname" jdbcType="VARCHAR" />
+  </resultMap>
+	 
+  <sql id="Base_Column_List">
+    	i.ID, i.METHOD_NAME, i.METHOD_DES, i.createDate
+  </sql>
+  <sql id="db_Column_List">
+		d.ID as DB_ID,  d.APPNAME
+ </sql>
+ 
+	<select id="findListPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="db_Column_List" />
+		from invoke_config i,db_info d where i.db_id=d.id
+	</select>
+	
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="db_Column_List"/>
+    from invoke_config i,db_info d
+    where i.ID = #{id,jdbcType=INTEGER} and d.id=i.db_id
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from invoke_config
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bsc.model.InvokeConfig">
+    insert into invoke_config (ID, METHOD_NAME, DB_ID, 
+      METHOD_DES, createDate)
+    values (#{id,jdbcType=INTEGER}, #{methodName,jdbcType=VARCHAR}, #{dbInfo.id,jdbcType=INTEGER}, 
+      #{methodDes,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bsc.model.InvokeConfig">
+    insert into invoke_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="methodName != null">
+        METHOD_NAME,
+      </if>
+      <if test="dbInfo.id != null">
+        DB_ID,
+      </if>
+      <if test="methodDes != null">
+        METHOD_DES,
+      </if>
+      <if test="createDate != null">
+        createdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="methodName != null">
+        #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="dbInfo.id != null">
+        #{dbInfo.id,jdbcType=INTEGER},
+      </if>
+      <if test="methodDes != null">
+        #{methodDes,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bsc.model.InvokeConfig">
+    update invoke_config
+    <set>
+      <if test="methodName != null">
+        METHOD_NAME = #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="dbInfo.id != null">
+        DB_ID = #{dbInfo.id,jdbcType=INTEGER},
+      </if>
+      <if test="methodDes != null">
+        METHOD_DES = #{methodDes,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        createDate = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bsc.model.InvokeConfig">
+    update invoke_config
+    set METHOD_NAME = #{methodName,jdbcType=VARCHAR},
+      DB_ID = #{dbInfo.id,jdbcType=INTEGER},
+      METHOD_DES = #{methodDes,jdbcType=VARCHAR},
+      createDate = #{createDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

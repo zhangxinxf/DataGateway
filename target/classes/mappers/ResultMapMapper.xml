@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bsc.dao.ResultMapMapper" >
+  <resultMap id="BaseResultMap" type="com.bsc.model.ResultMap" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="META_ID" property="metaId" jdbcType="INTEGER" />
+    <result column="SUBITEM_NAME" property="subitemName" jdbcType="VARCHAR" />
+    <result column="SUBITEM_ID" property="subitemId" jdbcType="INTEGER" />
+    <result column="ITEM_ID" property="itemId" jdbcType="INTEGER" />
+    <result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+    <result column="FIELD_ID" property="fieldId" jdbcType="INTEGER" />
+    <result column="FIELD_NAME" property="fieldName" jdbcType="VARCHAR" />
+    <result column="INVOKE_ID" property="invokeId" jdbcType="INTEGER" />
+    <result column="META_NAME" property="metaName" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, META_ID, SUBITEM_NAME, SUBITEM_ID, ITEM_ID, ITEM_NAME, FIELD_ID, FIELD_NAME, 
+    INVOKE_ID, META_NAME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from result_map
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from result_map
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bsc.model.ResultMap" >
+    insert into result_map (ID, META_ID, SUBITEM_NAME, 
+      SUBITEM_ID, ITEM_ID, ITEM_NAME, 
+      FIELD_ID, FIELD_NAME, INVOKE_ID, 
+      META_NAME)
+    values (#{id,jdbcType=INTEGER}, #{metaId,jdbcType=INTEGER}, #{subitemName,jdbcType=VARCHAR}, 
+      #{subitemId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, #{itemName,jdbcType=VARCHAR}, 
+      #{fieldId,jdbcType=INTEGER}, #{fieldName,jdbcType=VARCHAR}, #{invokeId,jdbcType=INTEGER}, 
+      #{metaName,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bsc.model.ResultMap" >
+    insert into result_map
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="metaId != null" >
+        META_ID,
+      </if>
+      <if test="subitemName != null" >
+        SUBITEM_NAME,
+      </if>
+      <if test="subitemId != null" >
+        SUBITEM_ID,
+      </if>
+      <if test="itemId != null" >
+        ITEM_ID,
+      </if>
+      <if test="itemName != null" >
+        ITEM_NAME,
+      </if>
+      <if test="fieldId != null" >
+        FIELD_ID,
+      </if>
+      <if test="fieldName != null" >
+        FIELD_NAME,
+      </if>
+      <if test="invokeId != null" >
+        INVOKE_ID,
+      </if>
+      <if test="metaName != null" >
+        META_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="metaId != null" >
+        #{metaId,jdbcType=INTEGER},
+      </if>
+      <if test="subitemName != null" >
+        #{subitemName,jdbcType=VARCHAR},
+      </if>
+      <if test="subitemId != null" >
+        #{subitemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldId != null" >
+        #{fieldId,jdbcType=INTEGER},
+      </if>
+      <if test="fieldName != null" >
+        #{fieldName,jdbcType=VARCHAR},
+      </if>
+      <if test="invokeId != null" >
+        #{invokeId,jdbcType=INTEGER},
+      </if>
+      <if test="metaName != null" >
+        #{metaName,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bsc.model.ResultMap" >
+    update result_map
+    <set >
+      <if test="metaId != null" >
+        META_ID = #{metaId,jdbcType=INTEGER},
+      </if>
+      <if test="subitemName != null" >
+        SUBITEM_NAME = #{subitemName,jdbcType=VARCHAR},
+      </if>
+      <if test="subitemId != null" >
+        SUBITEM_ID = #{subitemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null" >
+        ITEM_ID = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemName != null" >
+        ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldId != null" >
+        FIELD_ID = #{fieldId,jdbcType=INTEGER},
+      </if>
+      <if test="fieldName != null" >
+        FIELD_NAME = #{fieldName,jdbcType=VARCHAR},
+      </if>
+      <if test="invokeId != null" >
+        INVOKE_ID = #{invokeId,jdbcType=INTEGER},
+      </if>
+      <if test="metaName != null" >
+        META_NAME = #{metaName,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bsc.model.ResultMap" >
+    update result_map
+    set META_ID = #{metaId,jdbcType=INTEGER},
+      SUBITEM_NAME = #{subitemName,jdbcType=VARCHAR},
+      SUBITEM_ID = #{subitemId,jdbcType=INTEGER},
+      ITEM_ID = #{itemId,jdbcType=INTEGER},
+      ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      FIELD_ID = #{fieldId,jdbcType=INTEGER},
+      FIELD_NAME = #{fieldName,jdbcType=VARCHAR},
+      INVOKE_ID = #{invokeId,jdbcType=INTEGER},
+      META_NAME = #{metaName,jdbcType=CHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

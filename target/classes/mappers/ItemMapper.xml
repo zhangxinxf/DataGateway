@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bsc.dao.ItemMapper">
+	<resultMap id="BaseResultMap" type="com.bsc.model.Item">
+		<id column="ID" property="id" jdbcType="INTEGER" />
+		<result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+		<result column="ITEM_DES" property="itemDes" jdbcType="VARCHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="READ_STATUS" property="readStatus" jdbcType="INTEGER" />
+		<association property="dbInfo" column="DB_ID" resultMap="dbInfoResultMap"
+			javaType="DbInfo" />
+	</resultMap>
+
+	<resultMap id="dbInfoResultMap" type="com.bsc.model.DbInfo">
+		<id column="DBID" property="id" jdbcType="INTEGER" />
+		<result column="IP" property="ip" jdbcType="VARCHAR" />
+		<result column="USERNAME" property="username" jdbcType="VARCHAR" />
+		<result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+		<result column="DBNAME" property="dbname" jdbcType="VARCHAR" />
+		<result column="APPNAME" property="appname" jdbcType="VARCHAR" />
+		<result column="DBTYPE" property="dbtype" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		i.ID, i.ITEM_NAME, i.ITEM_DES,i.CREATE_DATE,i.READ_STATUS
+	</sql>
+
+	<sql id="dbinfo_column">
+		d.ID as DBID, d.IP, d.USERNAME, d.PASSWORD, d.DBNAME,
+		d.APPNAME, d.DBTYPE
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="dbinfo_column" />
+		from item i,db_info d
+		where i.ID = #{id,jdbcType=INTEGER} and
+		d.id=i.db_id
+	</select>
+
+	<select id="findAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="dbinfo_column" />
+		from item i,db_info d where d.id=i.db_id
+	</select>
+
+	<select id="findListPage" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="dbinfo_column" />
+		from item i,db_info d where i.db_id=d.id
+		<trim>
+			<if test="hashMap.itemName != null and hashMap.itemName != ''">
+				AND i.ITEM_NAME like "%"#{hashMap.itemName}"%"
+			</if>
+			<if test="hashMap.dbId != null and hashMap.dbId != ''">
+				AND i.DB_ID = #{hashMap.dbId}
+			</if>
+		</trim>
+	</select>
+
+	<select id="findListByItemNameOrdbId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from item i
+		where i.item_name = #{itemName}
+		and i.DB_ID=#{dbId}
+	</select>
+	<select id="findListByDbId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from item i
+		where  i.DB_ID=#{dbId}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from item
+		where ID = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.bsc.model.Item">
+		insert into item (ID,
+		ITEM_NAME, ITEM_DES,CREATE_DATE
+		DB_ID)
+		values (#{id,jdbcType=INTEGER},
+		#{itemName,jdbcType=VARCHAR},
+		#{itemDes,jdbcType=VARCHAR},#{createDate,jdbcType=TIMESTAMP},
+		#{dbInfo.id,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.bsc.model.Item">
+		insert into item
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="itemName != null">
+				ITEM_NAME,
+			</if>
+			<if test="itemDes != null">
+				ITEM_DES,
+			</if>
+			<if test="dbInfo.id != null">
+				DB_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="itemName != null">
+				#{itemName,jdbcType=VARCHAR},
+			</if>
+			<if test="itemDes != null">
+				#{itemDes,jdbcType=VARCHAR},
+			</if>
+			<if test="dbInfo.id != null">
+				#{dbInfo.id,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bsc.model.Item">
+		update item
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="itemName != null">
+				ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+			</if>
+			<if test="itemDes != null">
+				ITEM_DES = #{itemDes,jdbcType=VARCHAR},
+			</if>
+			<if test="dbInfo.id != null">
+				DB_ID = #{dbInfo.id,jdbcType=INTEGER},
+			</if>
+		</trim>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bsc.model.Item">
+		update item
+		set
+		ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+		ITEM_DES =
+		#{itemDes,jdbcType=VARCHAR},
+		DB_ID = #{dbInfo.id,jdbcType=INTEGER},
+		READ_STATUS=#{readStatus,jdbcType=INTEGER}
+		where ID =
+		#{id,jdbcType=INTEGER}
+	</update>
+	<delete id="batchDeleteById">
+		delete from item where id in
+		<foreach collection="array" open="(" close=")" separator=","
+			item="item">
+			#{item}
+		</foreach>
+	</delete>
+</mapper>

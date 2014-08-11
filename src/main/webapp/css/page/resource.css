@@ -1,0 +1,75 @@
+/** 基于圣杯布局 **/
+.res_warning_box {
+    border-radius: 3px;
+    box-shadow: 1px 2px 3px #dddddd;
+    background-color: #ffffff;
+    overflow: hidden;
+    _zoom: 1;
+    display: block;
+}
+.res_warning_tab, .res_warning_content {
+    padding-bottom: 5000px;
+    margin-bottom: -5000px;
+}
+.res_warning_tab {
+    background: url(../../img/content/dash_warning_bg.png) repeat-x 0 0;
+    height: 66px;
+    width: 105px;
+    float: left;
+    margin-left: -100%;
+}
+.res_warning_content {
+    width: 100%;
+    float: left;
+}
+.res_warning_content_wrap {
+    margin: 0 0 0 105px;
+    height: 66px;
+}
+/** end 圣杯布局 **/
+.res_warning_item {
+    width: 150px;
+    margin-left: 50px;
+    float: left;
+    display: block;
+}
+.res_warning_item a,
+.res_warning_item span {
+    float: left;
+    display: block;
+    margin-right: 10px;
+    height: 18px;
+    line-height: 18px;
+    font-style: normal;
+}
+
+/* icon */
+.help_tip_icon, .warning_tip_icon, .error_tip_icon {
+    padding-left: 19px;
+}
+.help_tip_icon {
+    background: url(../../img/icon/help_tip_icon.png) no-repeat 0 50%;
+}
+.warning_tip_icon {
+    background: url(../../img/icon/warning_tip_icon.png) no-repeat 0 50%;
+}
+.error_tip_icon {
+    background: url(../../img/icon/error_tip_icon.png) no-repeat 0 50%;
+}
+.warning_msg_icon {
+    background: url(../../img/icon/warning_msg_icon.png) no-repeat 50% 0;
+    padding-top: 17px;
+    text-align: center;
+}
+
+.res_img_box {
+    border-radius: 3px;
+    box-shadow: 1px 2px 3px #dddddd;
+    background-color: #ffffff;
+    overflow: hidden;
+    _zoom: 1;
+    display: block;
+    padding: 10px;
+}
+
+

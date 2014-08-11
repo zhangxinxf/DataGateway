@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bsc.dao.MetadataSubitemMapper" >
+  <resultMap id="BaseResultMap" type="com.bsc.model.MetadataSubItem" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SUBITEM_NAME" property="subitemName" jdbcType="VARCHAR" />
+    <result column="SUBITEM_DES" property="subitemDes" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <association property="metadata"  javaType="Metadata" resultMap="metadataMap" column="meta_id"/>
+  </resultMap>
+  <resultMap id="metadataMap" type="com.bsc.model.Metadata" >
+    <id column="meta_id" property="id" jdbcType="INTEGER" />
+    <result column="METADATA_NAME" property="metadataName" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="METADATA_DES" property="metadataDes" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="metadata_column" >
+     m.METADATA_NAME,m.METADATA_DES,m.create_date
+  </sql>
+  <sql id="Base_Column_List" >
+   ms.ID, ms.SUBITEM_NAME, ms.SUBITEM_DES, ms.META_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />,
+    <include refid="metadata_column" /> 
+    from metadata_subitem ms,metadata m
+    where ms.ID = #{id,jdbcType=INTEGER} and m.id=ms.meta_id
+  </select>
+    <select id="findListPage" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />,
+    <include refid="metadata_column" />
+    from metadata_subitem ms,metadata m
+    where  m.id=ms.meta_id 
+    <trim>
+    	<if test="hashMap.name != null and hashMap.name != ''">
+    	 		AND ms.SUBITEM_NAME like  "%"#{hashMap.name}"%"
+    	</if>
+    	<if test="hashMap.metaId != null and hashMap.metaId != ''">
+    	 		AND ms.META_ID = #{hashMap.metaId}
+    	</if>
+    </trim>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from metadata_subitem
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bsc.model.MetadataSubItem" >
+    insert into metadata_subitem (ID, SUBITEM_NAME, SUBITEM_DES,CREATE_DATE,META_ID)
+    values (#{id,jdbcType=INTEGER},#{subitemName,jdbcType=VARCHAR},#{subitemDes,jdbcType=VARCHAR},#{createDate},#{metadata.id,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bsc.model.MetadataSubItem" >
+    insert into metadata_subitem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="subitemName != null" >
+        SUBITEM_NAME,
+      </if>
+      <if test="subitemDes != null" >
+        SUBITEM_DES,
+      </if>
+      <if test="metaId != null" >
+        META_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="subitemName != null" >
+        #{subitemName,jdbcType=VARCHAR},
+      </if>
+      <if test="subitemDes != null" >
+        #{subitemDes,jdbcType=VARCHAR},
+      </if>
+      <if test="metaId != null" >
+        #{metadata.id,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bsc.model.MetadataSubItem" >
+    update metadata_subitem
+    <set >
+      <if test="subitemName != null" >
+        SUBITEM_NAME = #{subitemName,jdbcType=VARCHAR},
+      </if>
+      <if test="subitemDes != null" >
+        SUBITEM_DES = #{subitemDes,jdbcType=VARCHAR},
+      </if>
+      <if test="metaId != null" >
+        META_ID = #{metadata.id,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bsc.model.MetadataSubItem" >
+    update metadata_subitem
+    set SUBITEM_NAME = #{subitemName,jdbcType=VARCHAR},
+      SUBITEM_DES = #{subitemDes,jdbcType=VARCHAR},
+      META_ID = #{metadata.id,jdbcType=INTEGER}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+    <delete id="batchDeleteById" parameterType="java.lang.Integer">
+	  	delete from metadata_subitem where id in
+			<foreach collection="array" open="("  close=")"   item="id"  separator=",">
+				#{id}
+			</foreach>  	
+  </delete>
+</mapper>

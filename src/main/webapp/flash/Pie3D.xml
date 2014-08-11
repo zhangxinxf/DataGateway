@@ -1,0 +1,3 @@
+<chart  decimals='0' enableSmartLabels='1'   palette='3' baseFont='宋体' baseFontSize='12' caption='物理机（共5台）' >
+      <set label='关机' value='0'  color='D85151'/>
+</chart>	

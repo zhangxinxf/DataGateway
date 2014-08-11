@@ -1,0 +1,101 @@
+/* header */
+.header_bg {
+    background: url(../img/header/header_bg.png) no-repeat 50% 0;
+    height: 69px;
+}
+.header_logo {
+    background: url(../img/header/logo.png) no-repeat 0 50%;
+    width: 144px;
+    height: 69px;
+    margin-left: 40px;
+    display: block;
+    float: left;
+}
+.header_action_box {
+    background: url(../img/header/header_action_bg.png) no-repeat 0 0;
+    height: 25px;
+    width: 105px;
+    float: right;
+    margin-right: 20px;
+}
+.header_action_item {
+    float: left;
+    width: 99px;
+    text-align: center;
+}
+.header_refresh, .header_logout {
+    height: 25px;
+    line-height: 25px;
+    color: #aaaaaa;
+    padding-left: 19px;
+}
+.header_refresh {
+    background: url(../img/icon/refresh_icon.png) no-repeat 0 50%;
+}
+.header_refresh:hover {
+    background: url(../img/icon/refresh_hover_icon.png) no-repeat 0 50%;
+}
+.header_logout {
+    background: url(../img/icon/logout_icon.png) no-repeat 0 50%;
+}
+.header_logout:hover {
+    background: url(../img/icon/logout_hover_icon.png) no-repeat 0 50%;
+}
+.header_info {
+    background-color: #343859;
+    height: 32px;
+}
+.header_info a {
+    height: 32px;
+    line-height: 32px;
+    background: url(../img/header/header_arrow.png) no-repeat 0 50%;
+    padding-left: 10px;
+    color: #bbbbbb;
+    margin-left: 40px;
+    display: block;
+}
+
+.header_user_tab {
+    width: 428px;
+    margin-top: 14px;
+    margin-right: 10px;
+}
+
+a.user_tab, a.user_tab_first, a.user_tab_sel, a.user_tab_last {
+    float: left;
+    display: block;
+    width: 103px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #ffffff;
+}
+
+a.user_tab {
+    background: url(../img/header/user_tab.png) no-repeat -12px 0;
+    z-index: 1;
+}
+
+a.user_tab_first {
+    background: url(../img/header/user_tab.png) no-repeat 0 0;
+    z-index: 2;
+    width: 115px;
+    margin-left: -12px;
+}
+
+a.user_tab_last {
+    background: url(../img/header/user_tab_last.png) no-repeat -12px 0;
+    z-index: 1;
+}
+
+a.user_tab_sel, a.user_tab:hover, a.user_tab_last:hover, a.user_tab_first:hover {
+    background: url(../img/header/user_tab_sel.png) no-repeat 0 0;
+    z-index: 2;
+    width: 115px;
+    margin-left: -12px;
+    color: #333333;
+}
+
+
+
+

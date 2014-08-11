@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bsc.dao.JoinTableMapper" >
+  <resultMap id="BaseResultMap" type="com.bsc.model.JoinTable" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="searchName" property="searchName" jdbcType="VARCHAR" />
+    <result column="joinCloumn" property="joinCloumn" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="tableName"  property="tableName"  jdbcType="VARCHAR" />
+    <result column="joinType"   property="joinType"   jdbcType="VARCHAR" />
+    <result column="toTable"    property="toTable"    jdbcType="VARCHAR" />
+    <result column="refcloumn"  property="refCloumn"  jdbcType="VARCHAR" />
+    <association property="invokeConfig" javaType="InvokeConfig" column="invoke_id" resultMap="configResultMap"/>
+    <association property="item" javaType="Item" column="item_id" resultMap="itemResultMap"/>
+    <association property="toItem" javaType="Item" column="to_item_id" resultMap="toitemResultMap"/>
+  </resultMap>
+   <resultMap id="configResultMap" type="com.bsc.model.InvokeConfig">
+    <id column="invoke_id" jdbcType="INTEGER" property="id" />
+    <result column="METHOD_NAME" jdbcType="VARCHAR" property="methodName" />
+    <result column="METHOD_DES" jdbcType="VARCHAR" property="methodDes" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createDate" />
+  </resultMap>
+  
+  <resultMap id="toitemResultMap" type="com.bsc.model.Item">
+		<id column="to_itemid" property="id" jdbcType="INTEGER" />
+		<result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+ </resultMap>
+ 
+  <resultMap id="itemResultMap" type="com.bsc.model.Item">
+		<id column="itemid" property="id" jdbcType="INTEGER" />
+		<result column="ITEM_NAME" property="itemName" jdbcType="VARCHAR" />
+ </resultMap>
+	
+   <sql id="item_Column_List">
+    	it.ID as itemid, it.ITEM_NAME
+   </sql>
+   
+   <sql id="toitem_Column_List">
+    	its.ID as to_itemid, its.ITEM_NAME
+   </sql>
+   
+    <sql id="config_Column_List">
+    i.ID as invoke_id, i.METHOD_NAME, i.METHOD_DES, i.createDate
+   </sql>
+  
+  <sql id="Base_Column_List" >
+    j.id, j.searchName, j.joinCloumn, j.createDate, j.tableName,j.toTable,j.joinType,j.refcloumn
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="config_Column_List" />
+    ,
+    <include refid="item_Column_List" />
+    ,
+    <include refid="toitem_Column_List" />
+    from jointable j left join invoke_config i  on j.invoke_id=i.id  left join item it   on j.item_id=it.id  left join item its on    its.id=j.to_item_id
+    where j.id = #{id,jdbcType=INTEGER} 
+  </select>
+  
+  <select id="findByInvokeId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="config_Column_List" />
+    ,
+    <include refid="item_Column_List" />
+    ,
+    <include refid="toitem_Column_List" />
+    from jointable j left join invoke_config i  on j.invoke_id=i.id  left join item it   on j.item_id=it.id  left join item its on    its.id=j.to_item_id  where  i.id = #{invokeId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jointable
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bsc.model.JoinTable" >
+    insert into jointable (id, searchName, joinCloumn, 
+      createDate, invoke_id, tableName,toTable,joinType,item_id,to_item_id,refcloumn
+      )
+   	 values (#{id,jdbcType=INTEGER}, #{searchName,jdbcType=VARCHAR}, #{joinCloumn,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{invokeConfig.id,jdbcType=INTEGER}, #{tableName,jdbcType=VARCHAR},
+      #{toTable,jdbcType=VARCHAR},#{joinType,jdbcType=VARCHAR},#{item.id},#{toItem.id},#{refCloumn}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bsc.model.JoinTable" >
+    insert into jointable
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="searchName != null" >
+        searchName,
+      </if>
+      <if test="joinCloumn != null" >
+        joinCloumn,
+      </if>
+      <if test="createDate != null" >
+        createDate,
+      </if>
+      <if test="invokeId != null" >
+        invoke_id,
+      </if>
+      <if test="tableName != null" >
+        tableName,
+      </if>
+        <if test="item.id != null" >
+        item_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="searchName != null" >
+        #{searchName,jdbcType=VARCHAR},
+      </if>
+      <if test="joinCloumn != null" >
+        #{joinCloumn,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invokeId != null" >
+        #{invokeId,jdbcType=INTEGER},
+      </if>
+      <if test="tableName != null" >
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="item.id != null" >
+        #{item.id,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bsc.model.JoinTable" >
+    update jointable
+    <set >
+      <if test="searchName != null" >
+        searchName = #{searchName,jdbcType=VARCHAR},
+      </if>
+      <if test="joinCloumn != null" >
+        joinCloumn = #{joinCloumn,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        createDate = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invokeId != null" >
+        invoke_id = #{invokeConfig.id,jdbcType=INTEGER},
+      </if>
+      <if test="tableName != null" >
+        tableName = #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="item.id != null" >
+        item_id = #{item.id},
+      </if>
+       <if test="item.id != null" >
+        to_item_id = #{toItem.id}
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bsc.model.JoinTable" >
+    update jointable
+  		  set searchName = #{searchName,jdbcType=VARCHAR},
+		      joinCloumn = #{joinCloumn,jdbcType=VARCHAR},
+		      createDate = #{createDate,jdbcType=TIMESTAMP},
+		      invoke_id = #{invokeConfig.id,jdbcType=INTEGER},
+		      tableName = #{tableName,jdbcType=VARCHAR},
+		      toTable= #{toTable,jdbcType=VARCHAR},
+		   	  joinType= #{joinType,jdbcType=VARCHAR},
+		   	  item_id= #{item.id},
+		   	  to_item_id= #{toItem.id},
+		   	  refcloumn=#{refCloumn}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

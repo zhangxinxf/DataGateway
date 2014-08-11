@@ -1,0 +1,86 @@
+/* nav */
+.nav {
+    border-right: 1px solid #88adcc;
+    background: #97bede url(../img/left/nav_bg.png) repeat-x 0 0
+}
+.nav_box {
+    padding-top: 10px;
+}
+a.nav_one {
+    background: url(../img/left/nav_one.png) no-repeat 0 0;
+    width: 186px;
+    height: 29px;
+    line-height: 29px;
+    color: #eeeeee;
+    display: block;
+}
+a.nav_one:hover, a.nav_one.sel {
+    background: url(../img/left/nav_one_sel.png) no-repeat 0 0;
+}
+.nav_two_box {
+    display: none;
+}
+.nav_two_box.sel {
+    display: block;
+}
+.nav_two_box a {
+    background: url(../img/left/nav_two.png) no-repeat 0 0;
+    width: 186px;
+    height: 26px;
+    line-height: 26px;
+    color: #144981;
+    display: block;
+}
+.nav_two_box a:hover, .nav_two_box a.sel {
+    background: url(../img/left/nav_two_sel.png) no-repeat 0 0;
+}
+.nav_one_icon {
+    height: 29px;
+    line-height: 29px;
+    padding-left: 22px;
+    font-size: 14px;
+    color: #ffffff;
+    display: block;
+    margin-left: 20px;
+}
+.work_icon {
+    background: url(../img/left/work_icon.png) no-repeat 0 50%;
+}
+.ziyuan_icon {
+    background: url(../img/left/ziyuan_icon.png) no-repeat 0 50%;
+}
+.moban_icon {
+    background: url(../img/left/moban_icon.png) no-repeat 0 50%;
+}
+.cunchu_icon {
+    background: url(../img/left/cunchu_icon.png) no-repeat 0 50%;
+}
+.wangluo_icon {
+    background: url(../img/left/wangluo_icon.png) no-repeat 0 50%;
+}
+.xitong_icon {
+    background: url(../img/left/xitong_icon.png) no-repeat 0 50%;
+}
+.nav_arrow {
+    background: url(../img/left/nav_arrow.png) no-repeat 0 50%;
+    padding-left: 14px;
+    margin-left: 45px;
+    line-height: 26px;
+}
+.nav_trigger_box {
+    background-color: #e0e0e0;
+}
+.nav_trigger {
+    width: 6px;
+}
+.nav_close, .nav_open {
+    height: 188px;
+    margin-top:150px;
+    cursor: pointer;
+}
+.nav_close {
+    background: url(../img/left/nav_close.png) 0 0;
+}
+.nav_open {
+    background: url(../img/left/nav_open.png) 0 0;
+}

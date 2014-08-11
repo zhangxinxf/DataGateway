@@ -1,0 +1,130 @@
+.content_host_box {
+    padding: 10px 0 0;
+}
+
+.host_head {
+    border-top: 2px solid #88cfe6;
+    background: url(../../img/host/host_head_bg.png) repeat-x 0 0;
+    height: 287px;
+    overflow: hidden;
+}
+.host_head_inner {
+    padding: 10px;
+}
+.host_drag_left, .host_drag_right {
+    width: 40px;
+    height: 267px;
+    cursor: pointer;
+}
+.host_drag_left {
+    background: url(../../img/host/host_drag_left.png) no-repeat 50% 50%;
+}
+.host_drag_right {
+    background: url(../../img/host/host_drag_right.png) no-repeat 50% 50%;
+}
+.host_show_list {
+    overflow-x: hidden;
+    margin: 10px;
+}
+.host_show_item {
+    float: left;
+    padding: 20px;
+    width: 300px;
+    height: 220px;
+    *width: 340px;
+    *height: 260px;
+}
+.host_pc, .host_pc_sel {
+    width: 130px;
+    float: left;
+    padding-top: 130px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+.host_pc {
+    background: url(../../img/host/host_normal.png) no-repeat 0 0;
+}
+.host_pc:hover, .host_pc_sel {
+    background: url(../../img/host/host_hot.png) no-repeat 0 0;
+}
+.host_pc_info {
+    background: url(../../img/host/host_info_bg.png) no-repeat 0 0;
+    width: 167px;
+    height: 144px;
+    float: left;
+}
+.host_pc_info_inner {
+    padding: 10px 10px 10px 20px;
+}
+.host_pc_info_inner div {
+    line-height: 24px;
+}
+
+.host_pc_action {
+    margin-top: 20px;
+}
+
+.host_pc_play, .host_pc_play_sel,
+.host_pc_stop, .host_pc_stop_sel,
+.host_pc_pause, .host_pc_pause_sel {
+    height: 48px;
+    cursor: pointer;
+    float: left;
+}
+.host_pc_play {
+    background: url(../../img/host/host_play.png) no-repeat 0 0;
+    width: 54px;
+}
+.host_pc_stop {
+    background: url(../../img/host/host_stop.png) no-repeat 0 0;
+    width: 52px;
+}
+.host_pc_pause {
+    background: url(../../img/host/host_pause.png) no-repeat 0 0;
+    width: 54px;
+}
+.host_pc_disabled {
+    opacity: 0.5;
+    filter:alpha(opacity=50);
+}
+.host_pc_play:hover, .host_pc_play_sel {
+    background: url(../../img/host/host_play_sel.png) no-repeat 0 0;
+    width: 54px;
+}
+.host_pc_play.host_pc_disabled:hover {
+    background: url(../../img/host/host_play.png) no-repeat 0 0;
+}
+.host_pc_stop:hover, .host_pc_stop_sel {
+    background: url(../../img/host/host_stop_sel.png) no-repeat 0 0;
+    width: 52px;
+}
+.host_pc_stop.host_pc_disabled:hover {
+    background: url(../../img/host/host_stop.png) no-repeat 0 0;
+}
+.host_pc_pause:hover, .host_pc_pause_sel {
+    background: url(../../img/host/host_pause_sel.png) no-repeat 0 0;
+    width: 54px;
+}
+.host_pc_pause.host_pc_disabled:hover {
+    background: url(../../img/host/host_pause.png) no-repeat 0 0;
+}
+
+.host-analytics-bg {
+    background-color: #d4e7fa;
+    padding: 10px;
+}
+
+
+.host_head .layout .main .main-wrap {
+    margin: 0 40px 0 40px;
+}
+.host_head .layout .sub {
+    width: 40px;
+}
+.host_head .layout .extra {
+    width: 40px;
+    margin-left: -40px;
+}
+
+

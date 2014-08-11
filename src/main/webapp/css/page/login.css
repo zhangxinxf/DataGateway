@@ -1,0 +1,47 @@
+.login_bg {
+    background: #82bcea url(../../img/login/login-bg.png) repeat-x 0 -150px;
+}
+.login_content_bg {
+    background: url(../../img/login/login-content-bg.png) no-repeat 0 0;
+    width: 850px;
+    height: 474px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    position: relative;
+}
+.login_form {
+    position: absolute;
+    top: 110px;
+    left: 400px;
+}
+.login_input_box {
+    margin-top: 20px;
+}
+.login_input_box label {
+    width: 70px;
+    text-align: right;
+    line-height: 24px;
+    font-size: 14px;
+    float: left;
+    display: block;
+}
+.login_input_box input {
+    padding: 3px;
+    line-height: 12px;
+    width: 200px;
+    float: left;
+    display: block;
+}
+.login_input_verify input {
+    width: 132px;
+}
+.login_input_verify img {
+    display: block;
+    float: left;
+    margin-left: 2px;
+}
+.login_input_action {
+    margin-top: 20px;
+    padding-left: 70px;
+}

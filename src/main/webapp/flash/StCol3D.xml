@@ -1,0 +1,11 @@
+<chart palette='2'  shownames='1'  baseFont='宋体' baseFontSize='12' showSum='1' overlapColumns='0' shadowAlpha='80' formatNumberScale='0' decimalSeparator="."> 
+<categories>
+<category label='内存' />
+</categories>
+<dataset seriesName='已使用'  color='FF090D'>
+<set value='25601.34' />
+</dataset>
+<dataset seriesName='未使用' color='4095BF'>
+<set value='57401.85' />
+</dataset>
+</chart>
